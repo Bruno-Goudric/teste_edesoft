@@ -40,7 +40,7 @@ function Home() {
         </div>
         <div className="addProduct" onClick={() => setCreate(true)}>
           <BsPlusCircle />
-          <span>Add Products</span>
+          <span>Add Product</span>
         </div>
       </S.Header>
       <Component.Table dado={products} showModal={openModal} />
