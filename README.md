@@ -1,5 +1,7 @@
 # CRUD Teste Edesoft
 
+![](src/assets/work/projeto.jpg)
+
 Este repositório foi desenvolvido como avaliação para uma vaga de emprego
 
 ## Tecnólogias

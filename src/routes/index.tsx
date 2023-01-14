@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Routes as RoutesWrapper, Route } from "react-router-dom";
 
 import routesNames from "config/routesNames";

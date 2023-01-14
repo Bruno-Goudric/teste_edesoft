@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import React, { useState, useEffect, useCallback } from "react";
+import { ToastContainer } from "react-toastify";
 import { BsPlusCircle } from "react-icons/bs";
 import APIService from "services/api";
 import HomeProps from "./IHome";
@@ -13,11 +13,11 @@ function Home() {
   const [create, setCreate] = useState(false);
   const [idProduct, setIdProduct] = useState<number>(0);
 
-  const getProducts = () => {
+  const getProducts = useCallback(() => {
     APIService.get("products").then((resp) => {
       setProducts(resp.data);
     });
-  };
+  }, []);
 
   const openModal = (id: number) => {
     setIdProduct(id);
@@ -30,13 +30,13 @@ function Home() {
 
   useEffect(() => {
     getProducts();
-  }, []);
+  }, [getProducts]);
   return (
     <S.Container>
       <ToastContainer />
       <S.Header>
         <div>
-          <span className="Title">List of Products</span>
+          <span className="Title">List Products</span>
         </div>
         <div className="addProduct" onClick={() => setCreate(true)}>
           <BsPlusCircle />

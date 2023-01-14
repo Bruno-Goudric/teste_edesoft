@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { Box } from "@mui/material";
 import { toast } from "react-toastify";
 import CreateProps from "./ICreate";

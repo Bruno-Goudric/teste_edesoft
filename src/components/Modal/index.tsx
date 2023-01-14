@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import { toast } from "react-toastify";
-import { ModalProps } from "./IModal";
+import { DadoProps, ModalProps } from "./IModal";
 import { BsXLg } from "react-icons/bs";
 import * as S from "./styles";
 import APIService from "services/api";
+import Loading from "assets/icons/loading.gif";
 
 const style = {
   position: "absolute" as "absolute",
@@ -23,6 +24,7 @@ function Modal({ showModal, closeModal, dado }: ModalProps) {
   const [category, setCategory] = useState<string>();
   const [description, setDescription] = useState<string>();
   const [price, setPrice] = useState<string>();
+  const [product, setProduct] = useState<DadoProps>();
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -40,49 +42,69 @@ function Modal({ showModal, closeModal, dado }: ModalProps) {
       }
     });
   };
+
+  const getSingleProduct = useCallback((id: number) => {
+    APIService.get(`products/${id}`).then((resp) => {
+      setProduct(resp.data);
+    });
+  }, []);
+
+  useEffect(() => {
+    getSingleProduct(dado);
+  }, [getSingleProduct, dado]);
+
   return (
     <S.Container open={showModal} onClose={closeModal}>
-      <Box sx={style}>
-        <div className="header">
-          <BsXLg onClick={closeModal} />
-        </div>
-        <S.Form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="">Title:</label>
-            <input
-              type="text"
-              name="title"
-              onChange={(e) => setTitle(e.currentTarget.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="">Category:</label>
-            <input
-              type="text"
-              name="category"
-              onChange={(e) => setCategory(e.currentTarget.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="">Description:</label>
-            <input
-              type="text"
-              name="description"
-              onChange={(e) => setDescription(e.currentTarget.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="">Price:</label>
-            <input
-              type="text"
-              name="price"
-              onChange={(e) => setPrice(e.currentTarget.value)}
-              placeholder="00.00"
-            />
-          </div>
-          <S.Button>Enviar</S.Button>
-        </S.Form>
-      </Box>
+      <>
+        {product?.id !== undefined ? (
+          <Box sx={style}>
+            <div className="header">
+              <BsXLg onClick={closeModal} />
+            </div>
+            <S.Form onSubmit={handleSubmit}>
+              <div>
+                <label htmlFor="">Title:</label>
+                <input
+                  type="text"
+                  name="title"
+                  placeholder={product?.title}
+                  onChange={(e) => setTitle(e.currentTarget.value)}
+                />
+              </div>
+              <div>
+                <label htmlFor="">Category:</label>
+                <input
+                  type="text"
+                  name="category"
+                  placeholder={product?.category}
+                  onChange={(e) => setCategory(e.currentTarget.value)}
+                />
+              </div>
+              <div>
+                <label htmlFor="">Description:</label>
+                <input
+                  type="text"
+                  name="description"
+                  placeholder={product?.description}
+                  onChange={(e) => setDescription(e.currentTarget.value)}
+                />
+              </div>
+              <div>
+                <label htmlFor="">Price:</label>
+                <input
+                  type="text"
+                  name="price"
+                  placeholder={String(product?.price)}
+                  onChange={(e) => setPrice(e.currentTarget.value)}
+                />
+              </div>
+              <S.Button>Enviar</S.Button>
+            </S.Form>
+          </Box>
+        ) : (
+          <img src={Loading} alt="loading" />
+        )}
+      </>
     </S.Container>
   );
 }

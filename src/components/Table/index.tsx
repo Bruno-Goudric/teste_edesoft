@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import {
   Table as Container,
   TableBody,
@@ -47,7 +46,7 @@ function Table({ dado, showModal }: TableProps) {
                 <S.Products src={row.image} alt="" />
               </TableCell>
               <TableCell align="left">{row.title}</TableCell>
-              <TableCell align="left">${row.price}</TableCell>
+              <TableCell align="left">${row.price.toFixed(2)}</TableCell>
               <TableCell align="left">{row.category}</TableCell>
               <TableCell align="left">{row.description}</TableCell>
               <TableCell>
