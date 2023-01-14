@@ -32,7 +32,7 @@ Depois disso acesse a pasta do projeto que você deseja e instale as dependênci
 
 ## Executando a aplicação
 
-Execute o comando a baixo para inicializar o Expo:
+Execute o comando a baixo para inicializar o projeto:
 
 ```sh
   $ yarn start  ou npm start
