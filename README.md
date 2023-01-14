@@ -1,6 +1,6 @@
 # CRUD Teste Edesoft
 
-![](src/assets/work/projeto.jpg)
+![](src/assets/work/projeto.png)
 
 Este repositório foi desenvolvido como avaliação para uma vaga de emprego
 
